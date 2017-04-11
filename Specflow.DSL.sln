@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Specflow.DSL.Examples\Examples.csproj", "{214D07C8-07D4-44A0-B78C-E79D2750B0D1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B94A7E43-B404-4DD0-B4F3-838854612569} = {B94A7E43-B404-4DD0-B4F3-838854612569}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Specflow.DSL.SpecFlowPlugin", "..\Specflow.DSL.SpecFlowPlugin\Specflow.DSL.SpecflowPlugin\Specflow.DSL.SpecFlowPlugin.csproj", "{B94A7E43-B404-4DD0-B4F3-838854612569}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{214D07C8-07D4-44A0-B78C-E79D2750B0D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214D07C8-07D4-44A0-B78C-E79D2750B0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214D07C8-07D4-44A0-B78C-E79D2750B0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214D07C8-07D4-44A0-B78C-E79D2750B0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B94A7E43-B404-4DD0-B4F3-838854612569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B94A7E43-B404-4DD0-B4F3-838854612569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B94A7E43-B404-4DD0-B4F3-838854612569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B94A7E43-B404-4DD0-B4F3-838854612569}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

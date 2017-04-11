@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>SpecFlow.DSL</id>
+    <version>0.0.2</version>
+    <title>SpecFlow Additional DSL plugin</title>
+    <authors>Wenyuan(Ryan) Song</authors>
+    <owners>Wenyaun(Ryan) Song</owners>
+    <description>SpecFlow plugin for introducing additional capability to specflow DSL</description>
+    <summary>SpecFlow plugin for introducing variables to SpecFlow steps.</summary>
+    <releaseNotes>See GitHub project page, https://github.com/wenyuansong/SpecFlow.DSL#release-history</releaseNotes>
+    <language>en-US</language>
+    <projectUrl>https://github.com/wenyuansong/SpecFlow.DSL</projectUrl>
+    <licenseUrl>https://raw.githubusercontent.com/wenyuansong/SpecFlow.DSL/master/LICENSE</licenseUrl>
+    <iconUrl>http://go.specflow.org/specflow-nuget-icon</iconUrl>
+    <copyright>Copyright © 2017 Wenyuan(Ryan) Song, PlanIT</copyright>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>specflow DSL variables context</tags>
+    <dependencies>
+      <dependency id="SpecFlow" version="2.1.0" />
+      <dependency id="Fare" version="1.0.3" />
+    </dependencies>
+  </metadata>
+  	<files>
+    <file src="App.config.transform" target="content\" />
+  </files>
+</package>
