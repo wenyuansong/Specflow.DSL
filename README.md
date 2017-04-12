@@ -3,12 +3,13 @@
 An enhancement to Specflow DSL to be able to use dynamic test data in specflow steps by bringing in variables, regular expressions and simple calculations.
 
 
-Syntax:
-  [[ ]]               //double bracket in any text will trigger pattern matching
-  [[varName=value]]   //will create a variable named "varName" with value "value"
-  [[varName]]         //will get value of "varName", throw an error if "varName" is not defined
-  
-How it works:
+**Syntax**:<br>
+```
+  [[ ]]                //double bracket in any text will trigger pattern matching <br>
+  [[varName=value]]    //will create a variable named "varName" with value "value" <br>
+  [[varName]]         //will get value of "varName", throw an error if "varName" is not defined<br>
+```  
+**How it works**: <br>
    It actually creates key/value pairs in ScenarioContext.Current.
    So be careful not to conflict with your own context variables. 
 
@@ -29,8 +30,8 @@ How it works:
  	When create new user with the following details:
      |Field   | Value                                 |
      |UserName| [[name=RegEx([a-z]{5,8})]]            |	        
-	 |Password| [[pwd=RegEx([a-z]{3}[0-9]{3})]]       |
-	Then verify can login with username="[[name]]" and password="[[pwd]]"
+     |Password| [[pwd=RegEx([a-z]{3}[0-9]{3})]]       |
+     Then verify can login with username="[[name]]" and password="[[pwd]]"
 ```   
 
  - Support customerise transformation
@@ -46,7 +47,7 @@ How it works:
 	 When entered "[[timeVar=Today]]"		  //timeVar will be assigned to yyyy/MM/dd, e.g 2017/12/04
 ```  
  
- - Calculations are currently NOT supported
+ - Calculations are currently NOT supported but it can be done by customerisation as shown in project Examples
 
 Dependencies:
 * SpecFlow v2.1 +
