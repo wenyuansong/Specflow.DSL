@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BoDi;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Specflow.DSL
     [Binding]
     public sealed class ExampleSteps
     {
+
         [When(@"entered int (.*)")]
         public void GivenEnteredInt(int p0)
         {
@@ -26,6 +28,51 @@ namespace Specflow.DSL
         [When(@"entered string ""(.*)""")]
         public void GivenEnteredString(string p0)
         {
+        }
+
+        [Given(@"I have a cutomerise pattern mapping ""(.*)"" to ""(.*)""")]
+        public void GivenIHaveACutomerisePatternMappingTo(string keyword, string value)
+        {
+            ((IParameterTransform)
+                (ScenarioContext.Current.GetBindingInstance(typeof(IParameterTransform))))
+            .addTransformer(s => s.ToLower() == keyword.ToLower() ? value : s);
+        }
+
+        [Given(@"I have a cutomerise pattern to support calculation")]
+        public void GivenIHaveACutomerisePatternToSupportCalculation()
+        {
+            ((IParameterTransform)
+                (ScenarioContext.Current.GetBindingInstance(typeof(IParameterTransform))))
+            .addTransformer(s =>
+                {
+                    var m = Regex.Match(s, "([0-9]+)(\\+|\\-|\\*|\\/)([0-9]+)");
+                    if (m.Success)
+                    {
+                        switch (m.Groups[2].Value)
+                        {
+                            case "+":
+                                return (int.Parse(m.Groups[1].Value) + int.Parse(m.Groups[3].Value)).ToString();
+                            case "-":
+                                return (int.Parse(m.Groups[1].Value) - int.Parse(m.Groups[3].Value)).ToString();
+                            case "*":
+                                return (int.Parse(m.Groups[1].Value) * int.Parse(m.Groups[3].Value)).ToString();
+                            case "/":
+                                return (int.Parse(m.Groups[1].Value) / int.Parse(m.Groups[3].Value)).ToString();
+                            default:
+                                return s;
+                        }
+                    }
+                    return s;
+                }
+                );
+        }
+
+
+
+        [Given(@"I have a pattern to transform ""(.*)"" to ""(.*)""")]
+        public void GivenIHaveAPatternToTransformTo(string p0, string p1)
+        {
+            
         }
 
         [Then(@"verify string ""(.*)"" equals ""(.*)""")]
@@ -55,6 +102,12 @@ namespace Specflow.DSL
             object var;
             Assert.IsFalse(ScenarioContext.Current.TryGetValue(p0, out var));
 
+        }
+
+        [When(@"use table with the following details:")]
+        public void WhenUseTableWithTheFollowingDetails(Table table)
+        {
+            
         }
 
 

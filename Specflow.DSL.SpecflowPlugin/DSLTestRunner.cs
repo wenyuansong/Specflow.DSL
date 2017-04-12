@@ -1,4 +1,5 @@
 ﻿using BoDi;
+using Specflow.DSL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Infrastructure;
+using TechTalk.SpecFlow.Plugins;
 
 namespace Specflow.DSL
 {
@@ -15,11 +17,28 @@ namespace Specflow.DSL
 
         ITestRunner _TestRunner;
         IParameterTransform _Transform;
-
-        public DSLTestRunner(ITestExecutionEngine executionEngine)
+        
+        public DSLTestRunner(ITestExecutionEngine executionEngine, IParameterTransform tranform)
         {
             _TestRunner = new TestRunner(executionEngine);
-            _Transform = new ParameterTransform();
+            _Transform = tranform;
+        }
+
+        public string Transform(string obj)
+        {
+            return _Transform.Transform(obj);
+        }
+
+        public Table Transform(Table table)
+        {
+            if (table == null) return table;
+
+            foreach (var row in table.Rows)
+            {
+                foreach (var k in row.Keys)
+                    row[k] = _Transform.Transform(row[k]);
+            }
+            return table;
         }
 
         public FeatureContext FeatureContext => _TestRunner.FeatureContext;
@@ -30,12 +49,12 @@ namespace Specflow.DSL
        
         public void And(string text, string multilineTextArg, Table tableArg, string keyword = null)
         {
-            _TestRunner.And(_Transform.Transform(text), _Transform.Transform(multilineTextArg), _Transform.Transform(tableArg), keyword);
+            _TestRunner.And(Transform(text), Transform(multilineTextArg), Transform(tableArg), keyword);
         }
 
         public void But(string text, string multilineTextArg, Table tableArg, string keyword = null)
         {
-            _TestRunner.But(_Transform.Transform(text), _Transform.Transform(multilineTextArg), _Transform.Transform(tableArg), keyword);
+            _TestRunner.But(Transform(text), Transform(multilineTextArg), Transform(tableArg), keyword);
         }
 
         public void CollectScenarioErrors()
@@ -45,7 +64,7 @@ namespace Specflow.DSL
 
         public void Given(string text, string multilineTextArg, Table tableArg, string keyword = null)
         {
-            _TestRunner.Given(_Transform.Transform(text), _Transform.Transform(multilineTextArg), _Transform.Transform(tableArg), keyword);
+            _TestRunner.Given(Transform(text), Transform(multilineTextArg), Transform(tableArg), keyword);
         }
 
         public void InitializeTestRunner(int threadId)
@@ -91,15 +110,12 @@ namespace Specflow.DSL
         public void Then(string text, string multilineTextArg, Table tableArg, string keyword = null)
         {
             var p = new ParameterTransform();
-            _TestRunner.Then(_Transform.Transform(text), _Transform.Transform(multilineTextArg), _Transform.Transform(tableArg), keyword);
+            _TestRunner.Then(Transform(text), Transform(multilineTextArg), Transform(tableArg), keyword);
         }
 
         public void When(string text, string multilineTextArg, Table tableArg, string keyword = null)
         {
-            //ScenarioContext.Current
-            var p = new ParameterTransform();
-            
-            _TestRunner.When(_Transform.Transform(text), _Transform.Transform(multilineTextArg), _Transform.Transform(tableArg), keyword);
+            _TestRunner.When(Transform(text), Transform(multilineTextArg), Transform(tableArg), keyword);
         }
     }
 }

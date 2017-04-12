@@ -18,6 +18,7 @@ namespace Specflow.DSL
             runtimePluginEvents.CustomizeTestThreadDependencies += (sender, args) =>
             {
                 args.ObjectContainer.RegisterTypeAs<DSLTestRunner, ITestRunner>();
+                args.ObjectContainer.RegisterTypeAs<ParameterTransform, IParameterTransform>();
             };
         }
     }

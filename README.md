@@ -14,6 +14,14 @@ An enhancement to Specflow DSL to be able to use dynamic test data in specflow s
  	When enter [[var=RegEx([0-9]{3})]]         //assign var with 3 digit random number
 	Then [[var]] is a 3 digits number          // now get variable "var" value
 ```
+ - Same applies to SpecFlow tables:
+```
+ 	When create new user with the following details:
+     |Field   | Value                                 |
+     |UserName| [[name=RegEx([a-z]{5,8})]]            |	        
+	 |Password| [[pwd=RegEx([a-z]{3}[0-9]{3})]]       |
+	Then verify can login with username="[[name]]" and password="[[pwd]]"
+```   
  - Calculations are currently NOT supported
 
 Dependencies:

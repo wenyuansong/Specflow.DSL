@@ -2,12 +2,27 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>SpecFlow.DSL</id>
-    <version>0.0.2</version>
+    <version>0.0.4</version>
     <title>SpecFlow Additional DSL plugin</title>
     <authors>Wenyuan(Ryan) Song</authors>
     <owners>Wenyaun(Ryan) Song</owners>
-    <description>SpecFlow plugin for introducing additional capability to specflow DSL</description>
-    <summary>SpecFlow plugin for introducing variables to SpecFlow steps.</summary>
+    <description>An enhancement to Specflow DSL to be able to use dynamic test data in specflow steps by bringing in variables, regular expressions and simple calculations.
+**Examples**:
+
+- Create dynamic test data and refer it in another step
+
+When enter [[var=50]] //assign 50 to a variable named "var"
+
+Then [[var]] equals 50 // now get variable "var" value
+
+- Create dynamic test data using regular expression
+
+When enter [[var=RegEx([0-9]{3})]] //assign var with 3 digit random number
+
+Then [[var]] is a 3 digits number // now get variable "var" value
+
+- Calculations are currently NOT supported</description>
+    <summary>An enhancement to Specflow DSL to be able to use dynamic test data in specflow steps by bringing in variables, regular expressions and simple calculations</summary>
     <releaseNotes>See GitHub project page, https://github.com/wenyuansong/SpecFlow.DSL#release-history</releaseNotes>
     <language>en-US</language>
     <projectUrl>https://github.com/wenyuansong/SpecFlow.DSL</projectUrl>

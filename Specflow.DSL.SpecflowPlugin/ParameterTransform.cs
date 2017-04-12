@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace Specflow.DSL
 {
     public interface IParameterTransform
     {
-        string Transform(string obj, Func<string, string> additonalFilter = null);
-        Table Transform(Table obj, Func<string, string> additonalFilter = null);
+        string Transform(string param);
+        IParameterTransform addTransformer(Func<string, string> transform);
     }
     public class ParameterTransform : IParameterTransform
     {
-        public virtual string Transform(string str, Func<string, string> additonalFilter = null)
+        List<Func<string, string>> _additonalTransformers = new List<Func<string, string>>();
+
+        public IParameterTransform addTransformer(Func<string, string> transform)
+        {
+            _additonalTransformers.Add(transform);
+            return this;
+        }
+        public virtual string Transform(string str)
         {
             if (string.IsNullOrEmpty(str)) return str;
 
@@ -30,8 +35,8 @@ namespace Specflow.DSL
                     line = reader.ReadLine();
                     if (line != null)
                     {
-                        if (result.Length == 0) result.Append(TransformSingleLine(line, additonalFilter));
-                        else result.Append(Environment.NewLine + TransformSingleLine(line, additonalFilter));
+                        if (result.Length == 0) result.Append(TransformText(line));
+                        else result.Append(Environment.NewLine + TransformText(line));
                     }
 
                 } while (line != null);
@@ -40,71 +45,109 @@ namespace Specflow.DSL
             return result.ToString();
         }
 
-        public virtual Table Transform(Table table, Func<string, string> additonalFilter = null)
+
+        protected virtual string TransformPattern(string pattern)
         {
-            if (table == null) return table;
-
-            foreach (var row in table.Rows)
+            // supports [[key=value]] assignment
+            var isAssignment = Regex.Match(pattern, @"(.*)=(.*)");
+            if (isAssignment.Success)
             {
-                foreach (var k in row.Keys)
-                    row[k] = Transform(row[k], additonalFilter);
-            }
-            return table;
-        }
+                // bottom up travese
+                var cxtValue = TransformText(isAssignment.Groups[2].Value.Trim());
 
-        protected virtual string TransformSingleLine(string str, Func<string, string> additonalFilter = null)
-        {
-            if (string.IsNullOrEmpty(str)) return str;
+                // apply user filter
+                foreach (var t in _additonalTransformers)
+                    cxtValue = t.Invoke(cxtValue);
 
-            var m = Regex.Match(str.Trim(), @"(.*)?\[\[(.*)?\]\](.*)", RegexOptions.Multiline);
-
-            // match "[[.*]]"
-            if (m.Success)
-            {
-                var value = m.Groups[2].Value.Trim();
-
-                // supports [[key=value]] assignment
-                var isAssignment = Regex.Match(value, @"(.*)=(.*)");
-                if (isAssignment.Success)
+                // apply RegEx
+                var regExM = Regex.Match(cxtValue, @"RegEx\((.*)\)", RegexOptions.IgnoreCase);
+                if (regExM.Success)
                 {
-                    // convert value first
-                    var cxtValue = Transform(isAssignment.Groups[2].Value.Trim(), additonalFilter);
-
-                    // apply user filter
-                    cxtValue = additonalFilter != null ? additonalFilter(cxtValue) : cxtValue;
-
-                    var regExM = Regex.Match(cxtValue, @"RegEx\((.*)\)", RegexOptions.IgnoreCase);
-                    if (regExM.Success)
-                    {
-                        cxtValue = new Fare.Xeger(regExM.Groups[1].Value).Generate();
-                    }
-
-                    var cxtKey = Transform(isAssignment.Groups[1].Value.Trim());
-                    ScenarioContext.Current[cxtKey] = cxtValue;
-
-                    Console.WriteLine(string.Format("[[{0}={1}]]", cxtKey, cxtValue));
-                    return Transform(m.Groups[1].Value + cxtValue + m.Groups[3].Value);
+                    cxtValue = new Fare.Xeger(regExM.Groups[1].Value).Generate();
                 }
-                else
-                {
-                    // read value from context
-                    try
-                    {
-                        var cxtValue = ScenarioContext.Current[value] as string;
-                        Console.WriteLine(string.Format("[[{0}={1}]]", value, cxtValue));
-                        return Transform(m.Groups[1].Value + cxtValue + m.Groups[3].Value);
-                    }
-                    catch (KeyNotFoundException)
-                    {
-                        throw new KeyNotFoundException("can't find key:" + value + " in scenario context");
-                    }
-                }
+
+                var cxtKey = TransformText(isAssignment.Groups[1].Value.Trim());
+                ScenarioContext.Current[cxtKey] = cxtValue;
+
+                Console.WriteLine(string.Format("[[{0}={1}]]", cxtKey, cxtValue));
+                return cxtValue;
             }
             else
             {
-                return str;
+                // read value from context
+                try
+                {
+                    var cxtValue = ScenarioContext.Current[pattern] as string;
+                    Console.WriteLine(string.Format("[[{0}={1}]]", pattern, cxtValue));
+                    return cxtValue;
+                }
+                catch (KeyNotFoundException)
+                {
+                    throw new KeyNotFoundException("can't find key:" + pattern + " in scenario context");
+                }
             }
+        }
+        protected virtual string TransformText(string str)
+        {
+            if (string.IsNullOrEmpty(str)) return str;
+
+            var match = PatternMatch.Parse(str);
+
+            return match == null ? str
+                : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern)));
+        }
+
+        class PatternMatch
+        {
+            string Prefix { get; set; }
+            public string MatchedPattern { get; set; }
+            string Postfix { get; set; }
+
+           public static PatternMatch Parse(string strToMatch)
+            {
+                if (strToMatch.IndexOf("[[") < 0 || strToMatch.IndexOf("]]") < 0) return null;
+
+
+                // regroup
+                var startPattern = strToMatch.IndexOf("[[") + 2;
+                int endPattern = startPattern;
+                var i = startPattern;
+                int nested = 0;
+                while (i++ < strToMatch.Length)
+                {
+                    if (strToMatch[i] == '[' && strToMatch[i - 1] == '[')
+                    {
+                        i++;
+                        nested++;
+                    }
+                    else if (strToMatch[i] == ']' && strToMatch[i - 1] == ']')
+                    {
+                        if (nested == 0)
+                        {
+                            endPattern = i - 2;
+                            break;
+                        }
+                        else
+                        {
+                            i++;
+                            nested--;
+                        }
+                    }
+                }
+
+               return new PatternMatch()
+                {
+                Prefix = strToMatch.Substring(0, startPattern - 2),
+                MatchedPattern = strToMatch.Substring(startPattern, endPattern - startPattern + 1),
+                Postfix = strToMatch.Substring(endPattern + 3),
+                };
+          }
+
+            public string ReplaceMatched(string replace)
+            {
+                return Prefix + replace + Postfix;
+            }
+        }
 
         }
-    }
 }

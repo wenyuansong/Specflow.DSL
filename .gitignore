@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/packages
+/.vs/Specflow.DSL/v14
+/Specflow.DSL.Examples/bin/Debug
+/Specflow.DSL.Examples/obj/Debug
+/Specflow.DSL.SpecflowPlugin/bin/Debug
+/Specflow.DSL.SpecflowPlugin/obj/Debug
+/Specflow.DSL.SpecflowPlugin/SpecFlow.DSL.0.0.3.nupkg
