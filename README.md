@@ -5,9 +5,10 @@ An enhancement to Specflow DSL to be able to use dynamic test data in specflow s
 
 **Syntax**:<br>
 ```
-  [[ ]]                //double bracket in any text will trigger pattern matching <br>
-  [[varName=value]]    //will create a variable named "varName" with value "value" <br>
-  [[varName]]         //will get value of "varName", throw an error if "varName" is not defined<br>
+  [[ ]]                //double bracket in any text will trigger pattern matching 
+  [[varName=value]]    //will create a variable named "varName" with value "value" 
+  [[varName]]         //will get value of "varName", throw an error if "varName" is not defined
+  [[varName=RegEx(patternText)]]  //RegEx() is a keyword that value is generated from patternText
 ```  
 **How it works**: <br>
    It actually creates key/value pairs in ScenarioContext.Current.
