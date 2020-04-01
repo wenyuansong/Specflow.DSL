@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>SpecFlow.DSL</id>
-    <version>0.0.4</version>
+    <version>2.0.0</version>
     <title>SpecFlow Additional DSL plugin</title>
     <authors>Wenyuan(Ryan) Song</authors>
     <owners>Wenyaun(Ryan) Song</owners>
@@ -32,11 +32,21 @@ Then [[var]] is a 3 digits number // now get variable "var" value
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>specflow DSL variables context</tags>
     <dependencies>
-      <dependency id="SpecFlow" version="2.1.0" />
-      <dependency id="Fare" version="1.0.3" />
+      <group targetFramework="net45">
+        <dependency id="SpecFlow" version="3.1"/>
+	<dependency id="Fare" version="1.0.3" />
+      </group>
+      <group targetFramework="netstandard2.0">
+        <dependency id="SpecFlow" version="3.1"/>
+	<dependency id="Fare" version="1.0.3" />
+      </group>
     </dependencies>
   </metadata>
   	<files>
-    <file src="App.config.transform" target="content\" />
+    <file src="build\**\*" target="build"/>
+
+    <file src="bin\$config$\net45\Specflow.DSL.SpecFlowPlugin.*" target="lib\net45"/>
+    <file src="bin\$config$\netstandard2.0\Specflow.DSL.SpecFlowPlugin.dll" target="lib\netstandard2.0"/>
+    <file src="bin\$config$\netstandard2.0\Specflow.DSL.SpecFlowPlugin.pdb" target="lib\netstandard2.0"/>
   </files>
 </package>

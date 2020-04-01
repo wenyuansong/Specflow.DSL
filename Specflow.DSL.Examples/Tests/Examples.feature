@@ -1,7 +1,7 @@
 ﻿@UT
 Feature: Examples
 
-Scenario: int 
+Scenario: int
 	When entered int [[var=50]]
 	Then verify int [[var]] equals 50
 
@@ -29,7 +29,7 @@ Scenario: customerise pattern
 	When entered string "[[var=MyKeyword]]"
 	Then verify string "[[var]]" equals "MyKeywordValue"
 
-Scenario: add calculation 
+Scenario: add calculation
     Given I have a cutomerise pattern to support calculation
 	When entered int [[var=50]]
 	And entered int [[var2=[[var]]+1]]

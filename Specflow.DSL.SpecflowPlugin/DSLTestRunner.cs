@@ -1,14 +1,10 @@
-﻿using BoDi;
-using Specflow.DSL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.Plugins;
 
 namespace Specflow.DSL
 {
@@ -17,7 +13,7 @@ namespace Specflow.DSL
 
         ITestRunner _TestRunner;
         IParameterTransform _Transform;
-        
+
         public DSLTestRunner(ITestExecutionEngine executionEngine, IParameterTransform tranform)
         {
             _TestRunner = new TestRunner(executionEngine);
@@ -46,7 +42,7 @@ namespace Specflow.DSL
         public ScenarioContext ScenarioContext => _TestRunner.ScenarioContext;
 
         public int ThreadId => _TestRunner.ThreadId;
-       
+
         public void And(string text, string multilineTextArg, Table tableArg, string keyword = null)
         {
             _TestRunner.And(Transform(text), Transform(multilineTextArg), Transform(tableArg), keyword);
@@ -87,11 +83,6 @@ namespace Specflow.DSL
             _TestRunner.OnScenarioEnd();
         }
 
-        public void OnScenarioStart(ScenarioInfo scenarioInfo)
-        {
-            _TestRunner.OnScenarioStart(scenarioInfo);
-        }
-
         public void OnTestRunEnd()
         {
             _TestRunner.OnTestRunEnd();
@@ -116,6 +107,21 @@ namespace Specflow.DSL
         public void When(string text, string multilineTextArg, Table tableArg, string keyword = null)
         {
             _TestRunner.When(Transform(text), Transform(multilineTextArg), Transform(tableArg), keyword);
+        }
+
+        public void OnScenarioInitialize(ScenarioInfo scenarioInfo)
+        {
+            _TestRunner.OnScenarioInitialize(scenarioInfo);
+        }
+
+        public void OnScenarioStart()
+        {
+            _TestRunner.OnScenarioStart();
+        }
+
+        public void SkipScenario()
+        {
+            _TestRunner.SkipScenario();
         }
     }
 }
