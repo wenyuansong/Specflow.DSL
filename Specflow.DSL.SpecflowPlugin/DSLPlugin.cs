@@ -1,19 +1,15 @@
-﻿using Specflow.DSL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Plugins;
+using TechTalk.SpecFlow.UnitTestProvider;
 
+[assembly: RuntimePlugin(typeof(Specflow.DSL.DSLPlugin))]
 
-[assembly: RuntimePlugin(typeof(DSLPlugin))]
 namespace Specflow.DSL
 {
     public class DSLPlugin : IRuntimePlugin
     {
-        public void Initialize(RuntimePluginEvents runtimePluginEvents, RuntimePluginParameters runtimePluginParameters)
+        public void Initialize(RuntimePluginEvents runtimePluginEvents, RuntimePluginParameters runtimePluginParameters,
+            UnitTestProviderConfiguration unitTestProviderConfiguration)
         {
             runtimePluginEvents.CustomizeTestThreadDependencies += (sender, args) =>
             {

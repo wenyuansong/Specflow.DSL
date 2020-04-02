@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace Specflow.DSL
@@ -41,7 +43,7 @@ namespace Specflow.DSL
 
                 } while (line != null);
             }
-            
+
             return result.ToString();
         }
 
@@ -103,7 +105,7 @@ namespace Specflow.DSL
             public string MatchedPattern { get; set; }
             string Postfix { get; set; }
 
-           public static PatternMatch Parse(string strToMatch)
+            public static PatternMatch Parse(string strToMatch)
             {
                 if (strToMatch.IndexOf("[[") < 0 || strToMatch.IndexOf("]]") < 0) return null;
 
@@ -135,13 +137,13 @@ namespace Specflow.DSL
                     }
                 }
 
-               return new PatternMatch()
+                return new PatternMatch()
                 {
-                Prefix = strToMatch.Substring(0, startPattern - 2),
-                MatchedPattern = strToMatch.Substring(startPattern, endPattern - startPattern + 1),
-                Postfix = strToMatch.Substring(endPattern + 3),
+                    Prefix = strToMatch.Substring(0, startPattern - 2),
+                    MatchedPattern = strToMatch.Substring(startPattern, endPattern - startPattern + 1),
+                    Postfix = strToMatch.Substring(endPattern + 3),
                 };
-          }
+            }
 
             public string ReplaceMatched(string replace)
             {
@@ -149,5 +151,5 @@ namespace Specflow.DSL
             }
         }
 
-        }
+    }
 }
