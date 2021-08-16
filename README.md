@@ -51,8 +51,9 @@ An enhancement to Specflow DSL to be able to use dynamic test data in specflow s
  - Calculations are currently NOT supported but it can be done by customerisation as shown in project Examples
 
 Dependencies:
-* SpecFlow v2.1 +
-* Fare 1.0.3 +
+* .NetFramework 4.6.1+ or .NetCore 2.0+
+* SpecFlow v3.0 +
+* Fare 2.1.2 +
 
 License: MIT (https://github.com/wenyuansong/Specflow.DSL/blob/master/LICENSE)
 
