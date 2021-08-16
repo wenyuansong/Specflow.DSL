@@ -1,20 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <AssemblyName>Specflow.DSL.SpecFlowPlugin</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <NuspecFile>$(MSBuildThisFileDirectory)Specflow.DSL.SpecFlowPlugin.nuspec</NuspecFile>
-    <Version>2.0.0</Version>
+    <PackageId>SpecFlow.DSL</PackageId>
+    <Version>3.0.0</Version>
+    <Product>SpecFlow Additional DSL plugin</Product>
+    <Authors>Wenyuan(Ryan) Song</Authors>
+    <Company></Company>
+    <Description>An enhancement to Specflow DSL to be able to use dynamic test data in specflow steps by bringing in variables, regular expressions and simple calculations.
+**Examples**:
+
+- Create dynamic test data and refer it in another step
+
+When enter [[var=50]] //assign 50 to a variable named "var"
+
+Then [[var]] equals 50 // now get variable "var" value
+
+- Create dynamic test data using regular expression
+
+When enter [[var=RegEx([0-9]{3})]] //assign var with 3 digit random number
+
+Then [[var]] is a 3 digits number // now get variable "var" value
+
+- Calculations are currently NOT supported</Description>
+    <Copyright>Copyright © 2021 Wenyuan(Ryan) Song</Copyright>
+    <PackageProjectUrl>https://github.com/wenyuansong/SpecFlow.DSL</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/wenyuansong/SpecFlow.DSL</RepositoryUrl>
+    <PackageTags>specflow DSL variables context</PackageTags>
+    <PackageReleaseNotes>v3.0.0 : support specflow 3.X</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Fare" Version="2.1.2" />
-    <PackageReference Include="SpecFlow" Version="3.1.62" />
+    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.9.22" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

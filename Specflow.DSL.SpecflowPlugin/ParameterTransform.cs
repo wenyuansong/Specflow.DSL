@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Bindings;
 
 namespace Specflow.DSL
 {
@@ -14,6 +15,8 @@ namespace Specflow.DSL
         string Transform(string param);
         IParameterTransform addTransformer(Func<string, string> transform);
     }
+
+
     public class ParameterTransform : IParameterTransform
     {
         List<Func<string, string>> _additonalTransformers = new List<Func<string, string>>();

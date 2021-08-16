@@ -3,9 +3,9 @@
 ################################################################################
 
 /packages
-/.vs/Specflow.DSL/v14
-/Specflow.DSL.Examples/bin/Debug
-/Specflow.DSL.Examples/obj/Debug
-/Specflow.DSL.SpecflowPlugin/bin/Debug
-/Specflow.DSL.SpecflowPlugin/obj/Debug
-/Specflow.DSL.SpecflowPlugin/SpecFlow.DSL.0.0.3.nupkg
+/.vs/
+/Specflow.DSL.Examples/bin/
+/Specflow.DSL.Examples/obj/
+/Specflow.DSL.Examples/TestResults/
+/Specflow.DSL.SpecflowPlugin/bin/
+/Specflow.DSL.SpecflowPlugin/obj/

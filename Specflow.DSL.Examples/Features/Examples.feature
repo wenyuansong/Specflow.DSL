@@ -1,11 +1,11 @@
 ﻿@UT
 Feature: Examples
 
-Scenario: int
+Scenario: number test
 	When entered int [[var=50]]
 	Then verify int [[var]] equals 50
 
-Scenario: string 
+Scenario: string test
 	When entered string "[[var=50]]"
 	Then verify string "[[var]]" equals "50"
 

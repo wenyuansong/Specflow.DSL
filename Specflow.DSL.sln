@@ -1,16 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.156
+VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Specflow.DSL.SpecFlowPlugin", "Specflow.DSL.SpecflowPlugin\Specflow.DSL.SpecFlowPlugin.csproj", "{CACF906A-7230-4E37-984C-739AB1620995}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Specflow.DSL.SpecflowPlugin", "Specflow.DSL.SpecflowPlugin\Specflow.DSL.SpecflowPlugin.csproj", "{5B8AC786-1724-48C9-9DA2-C4E07B1EAF53}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6B4EBE9-9995-403D-BC3F-AD26CD6E960F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{03CADB7D-4219-473D-8C15-CAEA12B6E0F4}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.targets = Directory.Build.targets
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Specflow.DSL.Examples\Examples.csproj", "{214D07C8-07D4-44A0-B78C-E79D2750B0D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Specflow.DSL.Examples", "Specflow.DSL.Examples\Specflow.DSL.Examples.csproj", "{014AE8D9-95BD-4FC9-9A27-ED59E9D0EBBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,19 +19,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CACF906A-7230-4E37-984C-739AB1620995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CACF906A-7230-4E37-984C-739AB1620995}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CACF906A-7230-4E37-984C-739AB1620995}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CACF906A-7230-4E37-984C-739AB1620995}.Release|Any CPU.Build.0 = Release|Any CPU
-		{214D07C8-07D4-44A0-B78C-E79D2750B0D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{214D07C8-07D4-44A0-B78C-E79D2750B0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{214D07C8-07D4-44A0-B78C-E79D2750B0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{214D07C8-07D4-44A0-B78C-E79D2750B0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B8AC786-1724-48C9-9DA2-C4E07B1EAF53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B8AC786-1724-48C9-9DA2-C4E07B1EAF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B8AC786-1724-48C9-9DA2-C4E07B1EAF53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B8AC786-1724-48C9-9DA2-C4E07B1EAF53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{014AE8D9-95BD-4FC9-9A27-ED59E9D0EBBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{014AE8D9-95BD-4FC9-9A27-ED59E9D0EBBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{014AE8D9-95BD-4FC9-9A27-ED59E9D0EBBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{014AE8D9-95BD-4FC9-9A27-ED59E9D0EBBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {CF1B75FE-E67E-486F-9B92-BDBAD9A8B86A}
+		SolutionGuid = {80415254-3C3E-4ED6-8333-14B22B47F05C}
 	EndGlobalSection
 EndGlobal
