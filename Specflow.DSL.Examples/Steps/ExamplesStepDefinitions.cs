@@ -8,6 +8,12 @@ namespace Examples.Steps
     [Binding]
     public sealed class ExamplesStepDefinitions
     {
+        ScenarioContext _context;
+
+        public ExamplesStepDefinitions(ScenarioContext context)
+        {
+            _context = context;
+        }
 
         [When(@"entered int (.*)")]
         public void GivenEnteredInt(int p0)
@@ -30,7 +36,7 @@ namespace Examples.Steps
         public void GivenIHaveACutomerisePatternMappingTo(string keyword, string value)
         {
             ((IParameterTransform)
-                (ScenarioContext.Current.GetBindingInstance(typeof(IParameterTransform))))
+                (_context.GetBindingInstance(typeof(IParameterTransform))))
             .addTransformer(s => s.ToLower() == keyword.ToLower() ? value : s);
         }
 
@@ -38,7 +44,7 @@ namespace Examples.Steps
         public void GivenIHaveACutomerisePatternToSupportCalculation()
         {
             ((IParameterTransform)
-                (ScenarioContext.Current.GetBindingInstance(typeof(IParameterTransform))))
+                (_context.GetBindingInstance(typeof(IParameterTransform))))
             .addTransformer(s =>
             {
                 var m = Regex.Match(s, "([0-9]+)(\\+|\\-|\\*|\\/)([0-9]+)");
@@ -96,7 +102,7 @@ namespace Examples.Steps
         public void ThenVerifyStringIsNotDefined(string p0)
         {
             object var;
-            ScenarioContext.Current.TryGetValue(p0, out var).Should().BeFalse();
+            _context.TryGetValue(p0, out var).Should().BeFalse();
 
         }
 

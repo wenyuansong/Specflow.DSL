@@ -22,7 +22,7 @@ namespace Specflow.DSL
 
         public string Transform(string obj)
         {
-            return _Transform.Transform(obj);
+            return _Transform.Transform(obj, ScenarioContext);
         }
 
         public Table Transform(Table table)
@@ -32,7 +32,7 @@ namespace Specflow.DSL
             foreach (var row in table.Rows)
             {
                 foreach (var k in row.Keys)
-                    row[k] = _Transform.Transform(row[k]);
+                    row[k] = _Transform.Transform(row[k], ScenarioContext);
             }
             return table;
         }
@@ -100,7 +100,6 @@ namespace Specflow.DSL
 
         public void Then(string text, string multilineTextArg, Table tableArg, string keyword = null)
         {
-            var p = new ParameterTransform();
             _TestRunner.Then(Transform(text), Transform(multilineTextArg), Transform(tableArg), keyword);
         }
 

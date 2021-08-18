@@ -41,7 +41,7 @@ An enhancement to Specflow DSL to be able to use dynamic test data in specflow s
      for example, you want to map Today to YYYY:MM:dd, add the following code in one of your Specflow steps 
 	 or put it in BeforeScenario step.
       ((IParameterTransform)
-                (ScenarioContext.Current.GetBindingInstance(typeof(IParameterTransform))))
+                (_scenarioContext.GetBindingInstance(typeof(IParameterTransform))))
             .addTransformer(s => s.ToLower() == today ? DateTime.Now.ToString("yyyy/MM/dd") : s); 
 	
      Now in Specflow feature files, you can write:	

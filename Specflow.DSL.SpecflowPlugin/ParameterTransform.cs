@@ -1,32 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Bindings;
 
 namespace Specflow.DSL
 {
     public interface IParameterTransform
     {
-        string Transform(string param);
+        string Transform(string param, ScenarioContext context);
         IParameterTransform addTransformer(Func<string, string> transform);
     }
-
 
     public class ParameterTransform : IParameterTransform
     {
         List<Func<string, string>> _additonalTransformers = new List<Func<string, string>>();
-
+   
         public IParameterTransform addTransformer(Func<string, string> transform)
         {
             _additonalTransformers.Add(transform);
             return this;
         }
-        public virtual string Transform(string str)
+        public virtual string Transform(string str, ScenarioContext context)
         {
             if (string.IsNullOrEmpty(str)) return str;
 
@@ -40,8 +36,8 @@ namespace Specflow.DSL
                     line = reader.ReadLine();
                     if (line != null)
                     {
-                        if (result.Length == 0) result.Append(TransformText(line));
-                        else result.Append(Environment.NewLine + TransformText(line));
+                        if (result.Length == 0) result.Append(TransformText(line, context));
+                        else result.Append(Environment.NewLine + TransformText(line, context));
                     }
 
                 } while (line != null);
@@ -51,14 +47,14 @@ namespace Specflow.DSL
         }
 
 
-        protected virtual string TransformPattern(string pattern)
+        protected virtual string TransformPattern(string pattern, ScenarioContext context)
         {
             // supports [[key=value]] assignment
             var isAssignment = Regex.Match(pattern, @"(.*)=(.*)");
             if (isAssignment.Success)
             {
                 // bottom up travese
-                var cxtValue = TransformText(isAssignment.Groups[2].Value.Trim());
+                var cxtValue = TransformText(isAssignment.Groups[2].Value.Trim(), context);
 
                 // apply user filter
                 foreach (var t in _additonalTransformers)
@@ -71,8 +67,8 @@ namespace Specflow.DSL
                     cxtValue = new Fare.Xeger(regExM.Groups[1].Value).Generate();
                 }
 
-                var cxtKey = TransformText(isAssignment.Groups[1].Value.Trim());
-                ScenarioContext.Current[cxtKey] = cxtValue;
+                var cxtKey = TransformText(isAssignment.Groups[1].Value.Trim(), context);
+                context[cxtKey] = cxtValue;
 
                 Console.WriteLine(string.Format("[[{0}={1}]]", cxtKey, cxtValue));
                 return cxtValue;
@@ -82,7 +78,7 @@ namespace Specflow.DSL
                 // read value from context
                 try
                 {
-                    var cxtValue = ScenarioContext.Current[pattern] as string;
+                    var cxtValue = context[pattern] as string;
                     Console.WriteLine(string.Format("[[{0}={1}]]", pattern, cxtValue));
                     return cxtValue;
                 }
@@ -92,14 +88,14 @@ namespace Specflow.DSL
                 }
             }
         }
-        protected virtual string TransformText(string str)
+        protected virtual string TransformText(string str, ScenarioContext context)
         {
             if (string.IsNullOrEmpty(str)) return str;
 
             var match = PatternMatch.Parse(str);
 
             return match == null ? str
-                : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern)));
+                : TransformText(match.ReplaceMatched(TransformPattern(match.MatchedPattern, context)), context);
         }
 
         class PatternMatch
