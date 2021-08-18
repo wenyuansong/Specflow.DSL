@@ -11,7 +11,7 @@ An enhancement to Specflow DSL to be able to use dynamic test data in specflow s
   [[varName=RegEx(patternText)]]  //RegEx() is a keyword that value is generated from patternText
 ```  
 **How it works**: <br>
-   It actually creates key/value pairs in ScenarioContext.Current.
+   It actually creates key/value pairs in current ScenarioContext.
    So be careful not to conflict with your own context variables. 
 
 **Examples**: 
