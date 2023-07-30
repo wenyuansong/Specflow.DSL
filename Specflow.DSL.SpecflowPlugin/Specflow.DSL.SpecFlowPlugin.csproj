@@ -5,9 +5,9 @@
     <AssemblyName>Specflow.DSL.SpecFlowPlugin</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>SpecFlow.DSL</PackageId>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <Product>SpecFlow Additional DSL plugin</Product>
-    <Authors>Wenyuan(Ryan) Song</Authors>
+    <Authors>Wenyuan(Ryan) Song, Liam Flanagan</Authors>
     <Company></Company>
     <Description>An enhancement to Specflow DSL to be able to use dynamic test data in specflow steps by bringing in variables, regular expressions and simple calculations.
 **Examples**:
