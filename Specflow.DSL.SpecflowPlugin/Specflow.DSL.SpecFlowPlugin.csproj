@@ -29,7 +29,7 @@ Then [[var]] is a 3 digits number // now get variable "var" value
     <PackageProjectUrl>https://github.com/wenyuansong/SpecFlow.DSL</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wenyuansong/SpecFlow.DSL</RepositoryUrl>
     <PackageTags>specflow DSL variables context</PackageTags>
-    <PackageReleaseNotes>v3.0.0 : support specflow 3.X</PackageReleaseNotes>
+    <PackageReleaseNotes>v3.1.0 : Dependency Version Updates</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
