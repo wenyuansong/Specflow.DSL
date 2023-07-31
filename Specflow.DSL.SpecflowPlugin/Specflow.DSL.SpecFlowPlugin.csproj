@@ -5,9 +5,9 @@
     <AssemblyName>Specflow.DSL.SpecFlowPlugin</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>SpecFlow.DSL</PackageId>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <Product>SpecFlow Additional DSL plugin</Product>
-    <Authors>Wenyuan(Ryan) Song</Authors>
+    <Authors>Wenyuan(Ryan) Song, Liam Flanagan</Authors>
     <Company></Company>
     <Description>An enhancement to Specflow DSL to be able to use dynamic test data in specflow steps by bringing in variables, regular expressions and simple calculations.
 **Examples**:
@@ -29,7 +29,7 @@ Then [[var]] is a 3 digits number // now get variable "var" value
     <PackageProjectUrl>https://github.com/wenyuansong/SpecFlow.DSL</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wenyuansong/SpecFlow.DSL</RepositoryUrl>
     <PackageTags>specflow DSL variables context</PackageTags>
-    <PackageReleaseNotes>v3.0.0 : support specflow 3.X</PackageReleaseNotes>
+    <PackageReleaseNotes>v3.1.0 : Dependency Version Updates</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
