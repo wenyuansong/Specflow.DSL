@@ -1,0 +1,27 @@
+name: Release Nuget Package
+
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Restore dependencies
+      run: dotnet restore 
+
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+
+    - name: Build
+      run: dotnet build --configuration Release
+
+    - name: Pack
+      run: dotnet pack --no-build --configuration Release --output out
+
+    - name: Publish nuget
+      run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
